@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yad2 - Listings</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+    <h1>Listings</h1>
+    <a href="#">Create listing</a>
+    <form>
+        <label for="search">Search</label>
+        <input id="search" type="search" name="search" />
+        <button>Search</button>
+    </form>
+    <ul id="listings"></ul>
+    <script>
+        fetch("/api/listings")
+            .then((res) => res.json())
+            .then((listings) => {
+                listings.innerHTML = listings
+                    .map((listing) => `<li><a href="/listing#${listing.id}">${listing.title}</a></li>`)
+                    .join("\n");
+            });
+    </script>
+</body>
+</html>
